@@ -1,0 +1,89 @@
+import java.util.Scanner;
+
+class StudentGradeCalculator {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        char choice;
+
+        do {
+
+            System.out.print("\nEnter Student Name: ");
+            String studentName = sc.nextLine();
+
+            System.out.print("Enter number of subjects: ");
+            int subjects = sc.nextInt();
+
+            String[] subjectName = new String[subjects];
+            int[] marks = new int[subjects];
+
+            int totalMarks = 0;
+
+            sc.nextLine(); // buffer clear
+
+            for (int i = 0; i < subjects; i++) {
+
+                System.out.print("\nEnter Subject " + (i + 1) + " Name: ");
+                subjectName[i] = sc.nextLine();
+
+                while (true) {
+                    System.out.print("Enter marks for " + subjectName[i] + " (0-100): ");
+                    marks[i] = sc.nextInt();
+
+                    if (marks[i] >= 0 && marks[i] <= 100) {
+                        totalMarks += marks[i];
+                        break;
+                    } else {
+                        System.out.println("Invalid Marks! Enter between 0 to 100.");
+                    }
+                }
+                sc.nextLine(); // buffer clear
+            }
+
+            double average = (double) totalMarks / subjects;
+            String grade;
+
+            if (average >= 90)
+                grade = "A+";
+            else if (average >= 80)
+                grade = "A";
+            else if (average >= 70)
+                grade = "B";
+            else if (average >= 60)
+                grade = "C";
+            else if (average >= 50)
+                grade = "D";
+            else
+                grade = "F";
+
+            // ===== CHART FORMAT RESULT =====
+
+            System.out.println("\n===========================================");
+            System.out.println("              RESULT SHEET                 ");
+            System.out.println("===========================================");
+            System.out.println("Student Name : " + studentName);
+            System.out.println("-------------------------------------------");
+            System.out.printf("%-20s %-10s\n", "Subject", "Marks");
+            System.out.println("-------------------------------------------");
+
+            for (int i = 0; i < subjects; i++) {
+                System.out.printf("%-20s %-10d\n", subjectName[i], marks[i]);
+            }
+
+            System.out.println("-------------------------------------------");
+            System.out.println("Total Marks        : " + totalMarks);
+            System.out.printf("Average Percentage : %.2f%%\n", average);
+            System.out.println("Grade              : " + grade);
+            System.out.println("===========================================");
+
+            System.out.print("\nDo you want to calculate again? (y/n): ");
+            choice = sc.next().charAt(0);
+            sc.nextLine(); // buffer clear
+
+        } while (choice == 'y' || choice == 'Y');
+
+        System.out.println("\nThank You! Program Ended.");
+        sc.close();
+    }
+}
